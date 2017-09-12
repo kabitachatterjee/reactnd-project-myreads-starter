@@ -3,19 +3,20 @@ import { PropTypes } from 'prop-types';
 
 class BookList extends Component {
   static propTypes = {
-    books: PropTypes.array.isRequired,
-    currentlyReading: PropTypes.array,
-    read: PropTypes.array
+    books: PropTypes.array.isRequired
   }
 render() {
-  const { books, currentlyReading, read } = this.props
+  const { books } = this.props
+  let currentlyReading = books.filter(book => book.shelf === 'currentlyReading')
+  let read = books.filter(book => (book.shelf === 'read'))
+  let wantToRead = books.filter(book => (book.shelf === 'wantToRead'))
   return (
     <div>
     <div className="bookshelf">
       <h2 className="bookshelf-title">Currently Reading</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            { books.map((book) => (
+            { currentlyReading.map((book) => (
               <li key={book.id}>
                 <div className="book">
                   <div className="book-top">
@@ -42,7 +43,7 @@ render() {
         <h2 className="bookshelf-title">Read</h2>
           <div className="bookshelf-books">
             <ol className="books-grid">
-              { books.map((book) => (
+              { read.map((book) => (
                 <li key={book.id}>
                   <div className="book">
                     <div className="book-top">
@@ -69,7 +70,7 @@ render() {
           <h2 className="bookshelf-title">Want To Read</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
-                { books.map((book) => (
+                { wantToRead.map((book) => (
                   <li key={book.id}>
                     <div className="book">
                       <div className="book-top">
