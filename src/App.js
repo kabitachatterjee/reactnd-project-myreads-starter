@@ -37,7 +37,8 @@ class BooksApp extends React.Component {
         <SearchBooks />
       )}
       {!this.state.showSearchPage && (
-        <BookList books={this.state.allBooks} />
+        <BookList books={this.state.allBooks}
+        onNavigate={() => {this.setState({showSearchPage: true})}}/>
       )}
 
 
