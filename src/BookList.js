@@ -5,12 +5,30 @@ class BookList extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired
   }
+  state = {
+    shelf: ''
+  }
+  // console.log(this.state)
+
+  updateSelect = (e) => {
+    console.log(e)
+    this.setState({
+      shelf: e
+    })
+    //this.book.shelf = this.state.selectValue
+  }
+
 render() {
   const { books } = this.props
   let currentlyReading = books.filter(book => book.shelf === 'currentlyReading')
   let read = books.filter(book => (book.shelf === 'read'))
   let wantToRead = books.filter(book => (book.shelf === 'wantToRead'))
   return (
+    <div className="list-books">
+      <div className="list-books-title">
+        <h1>MyReads</h1>
+      </div>
+      <div className="list-books-content">
     <div>
     <div className="bookshelf">
       <h2 className="bookshelf-title">Currently Reading</h2>
@@ -22,7 +40,7 @@ render() {
                   <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+book.imageLinks.thumbnail+')' }}></div>
                       <div className="book-shelf-changer">
-                        <select>
+                        <select value={this.state.shelf} onChange={(event) => this.updateSelect(event.currentTarget.value)} >
                           <option value="none" disabled>Move to...</option>
                           <option value="currentlyReading">Currently Reading</option>
                           <option value="wantToRead">Want to Read</option>
@@ -49,7 +67,7 @@ render() {
                     <div className="book-top">
                       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+book.imageLinks.thumbnail+')' }}></div>
                         <div className="book-shelf-changer">
-                          <select>
+                          <select value={this.state.shelf} onChange={(event) => this.updateSelect(event.currentTarget.value)} >
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -76,7 +94,7 @@ render() {
                       <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+book.imageLinks.thumbnail+')' }}></div>
                           <div className="book-shelf-changer">
-                            <select>
+                            <select value={this.state.shelf} onChange={(event) => this.updateSelect(event.currentTarget.value)} >
                               <option value="none" disabled>Move to...</option>
                               <option value="currentlyReading">Currently Reading</option>
                               <option value="wantToRead">Want to Read</option>
@@ -93,6 +111,11 @@ render() {
               </ol>
             </div>
           </div>
+      </div>
+      <div className="open-search">
+        <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+      </div>
+      </div>
       </div>
       )
     }
