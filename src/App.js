@@ -25,22 +25,8 @@ class BooksApp extends React.Component {
         // wantToRead: books.filter(book => (book.shelf === 'wantToRead'))
       })
       console.log(this.state.allBooks)
-      // console.log(this.state.currentlyReading)
-      // console.log(this.state.read)
-      // console.log(this.state.wantToRead)
     })
   }
-
-  shelfUpdate(book, shelf) {
-     var bookID = book.id
-     BooksAPI.update(bookID, shelf).then((results) => {
-       this.setState((prevBooks) => ({
-         allBooks: prevBooks.books.filter(a => a.id === bookID).map(a => a.shelf = shelf)
-       }))
-
-     })
-     console.log(this.state.allBooks)
-   }
 
 
 

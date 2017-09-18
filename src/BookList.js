@@ -8,30 +8,22 @@ class BookList extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired
   }
-  // state = {
-  //   shelf: ''
-  // }
-  // console.log(this.state)
 
-  // updateShelf = (book) => {
-  //   console.log(book)
-  //   this.setState({
-  //     shelf: book.shelf
-  //   })
-  //   if(this.props.onShelfUpdate) {
-  //     this.props.onShelfUpdate(book)
-  //   }
-  //   //this.book.shelf = this.state.selectValue
-  // }
   shelfUpdate(book, shelf) {
-     var bookID = book.id
-     BooksAPI.update(bookID, shelf).then((results) => {
-       this.setState((prevBooks) => ({
-         allBooks: prevBooks.books.filter(a => a.id === bookID).map(a => a.shelf = shelf)
-       }))
+     var bookID = book
+     var shelf = shelf
+     console.log(bookID)
+     console.log(shelf)
 
+     var move_book = this.props.books.filter(book => book.id === bookID)
+     console.log(move_book)
+     move_book[0]['shelf'] = shelf
+     this.props.books.concat([move_book])
+     console.log(this.props.books)
+
+     BooksAPI.update(bookID, shelf).then((results) => {
+       console.log(results)
      })
-     console.log(this.state.allBooks)
    }
 
 render() {
@@ -46,9 +38,9 @@ render() {
         </div>
         <div className="list-books-content">
           <div>
-            <Shelf books={currentlyReading} name="Currently Reading" onShelfUpdate={(book) => {this.shelfUpdate(book)}}/>
-            <Shelf books={read} name="Read" onShelfUpdate={(book) => {this.shelfUpdate(book)}}/>
-            <Shelf books={wantToRead} name="Want To Read" onShelfUpdate={(book) => {this.shelfUpdate(book)}}/>
+            <Shelf books={currentlyReading} name="Currently Reading" onShelfUpdate={(book,shelf) => {this.shelfUpdate(book,shelf)}}/>
+            <Shelf books={read} name="Read" onShelfUpdate={(book,shelf) => {this.shelfUpdate(book,shelf)}}/>
+            <Shelf books={wantToRead} name="Want To Read" onShelfUpdate={(book,shelf) => {this.shelfUpdate(book,shelf)}}/>
           </div>
           <div className="open-search">
             <Link to='/search'>Add a book</Link>
