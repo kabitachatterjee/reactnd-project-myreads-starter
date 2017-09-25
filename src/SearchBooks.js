@@ -16,19 +16,16 @@ class SearchBooks extends Component {
       this.setState({query: value})
       this.bookSearch(value)
     }
-  // bookSearch(bookQuery) {
-  //   BooksAPI.search(bookQuery, 20).then((results) => {
-  //     const checkBookShelf = results.map(book => {
-  //       this.state.bookShelf.forEach(b => {
-  //         if (book.id === b.id) {
-  //           book.shelf = b.shelf
-  //         } else {
-  //           book.shelf = "none"
-  //         }
-  //       })
-  //       return book
+
+  // mergeArr = (arr,Arr) => {
+  //   return arr.map((item)=>{
+  //     Arr.forEach((Item)=>{
+  //       if(Item.id === item.id){
+  //         item.shelf = Item.shelf
+  //         return
+  //       }
   //     })
-  //     this.setState({ books: checkBookShelf })
+  //     return item
   //   })
   // }
 
@@ -36,10 +33,11 @@ class SearchBooks extends Component {
     if (value.length !== 0) {
       BooksAPI.search(value, 10).then((books) => {
         if(books.length>0){
-          books = books.filter((book) => book.id)
+          books = books.filter((book) => book.imageLinks)
           console.log(books)
-          //books = this.mergeArr(books,this.props.myBooks)
-          this.setState({books})
+          // console.log(this.props.books)
+          // books = this.mergeArr(books,this.props.books)
+          this.setState({books: books})
         }
         else{
           this.setState({books: []})
