@@ -20,30 +20,58 @@ class BooksApp extends React.Component {
     BooksAPI.getAll().then((books) => {
       this.setState({
         allBooks: books
-        // currentlyReading: books.filter(book => book.shelf === 'currentlyReading'),
-        // read: books.filter(book => (book.shelf === 'read')),
-        // wantToRead: books.filter(book => (book.shelf === 'wantToRead'))
       })
       console.log(this.state.allBooks)
     })
   }
 
-
-
-  searchBooks(query) {
-    BooksAPI.search(query, 20).then ( books => {if(books.error) { return books.error }})
+  handleShelfUpdate(book, shelf) {
+    //  var bookId = book
+    //  var shelfTo = shelf
+    //  console.log(bookId)
+    //  console.log(shelfTo)
+    //  BooksAPI.update(bookId, shelfTo).then(books => {
+    //    console.log(books)
     //   this.setState(state => ({
-    //     allBooks: state.allBooks.concat([ books ])
+    //     allBooks: state.allBooks
     //   }))
+    //   console.log(this.state.allBooks)
     // })
+    BooksAPI.update(book, shelf).then(response => {
+      this.getBooksOnShelf();
+    })
   }
+    getBooksOnShelf() {
+    BooksAPI.getAll().then(data => {
+      this.setState({
+        books: data
+      })
+    })
+  }
+
+
+
+
+    //  var move_book = this.state.allBooks.filter(book => book.id === bookID)
+    //  move_book[0]['shelf'] = shelf
+
+
+
+
+  // searchBooks(query) {
+  //   BooksAPI.search(query, 20).then ( books => {if(books.error) { return books.error }})
+  //   //   this.setState(state => ({
+  //   //     allBooks: state.allBooks.concat([ books ])
+  //   //   }))
+  //   // })
+  // }
 
   render() {
     return (
       <div className="app">
       <Route path='/search' render={() => (<SearchBooks
         onSearchBooks={(query) => {this.searchBooks(query)}} />)} />
-        <Route exact path='/' render={() => (<BookList books={this.state.allBooks} />)} />
+        <Route exact path='/' render={() => (<BookList books={this.state.allBooks} shelfUpdate={this.handleShelfUpdate} />)} />
         </div>
     )
   }

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 class Shelf extends Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired
+    }
   state = {
     shelf: ''
   }
