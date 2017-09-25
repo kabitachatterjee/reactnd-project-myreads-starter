@@ -35,8 +35,6 @@ class SearchBooks extends Component {
         if(books.length>0){
           books = books.filter((book) => book.imageLinks)
           console.log(books)
-          // console.log(this.props.books)
-          // books = this.mergeArr(books,this.props.books)
           this.setState({books: books})
         }
         else{
@@ -67,7 +65,10 @@ class SearchBooks extends Component {
             <ol className="books-grid"></ol>
           </div>
         </div>
-        {this.state.query !== '' && books.length > 0 && (<Shelf title="Search Results" books={books} />)}
+        {this.state.query !== '' && books.length > 0 && (<Shelf title="Search Results" books={books}
+        onShelfUpdate={(id, shelf) => {
+          this.props.onShelfUpdate(id, shelf)
+        }}/>)}
       </div>
 
 
