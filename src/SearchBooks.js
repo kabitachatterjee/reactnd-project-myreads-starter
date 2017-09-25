@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import serializeForm from 'form-serialize';
 import Shelf from './Shelf';
+import * as BooksAPI from './BooksAPI';
 
 class SearchBooks extends Component {
 
@@ -13,8 +14,7 @@ class SearchBooks extends Component {
   updateQuery = (event) => {
       const value = event.target.value.trim()
       this.setState({query: value})
-      console.log(this.state.query)
-      //this.searchData(value)
+      this.bookSearch(value)
     }
   // bookSearch(bookQuery) {
   //   BooksAPI.search(bookQuery, 20).then((results) => {
@@ -31,6 +31,24 @@ class SearchBooks extends Component {
   //     this.setState({ books: checkBookShelf })
   //   })
   // }
+
+  bookSearch = (value) => {
+    if (value.length !== 0) {
+      BooksAPI.search(value, 10).then((books) => {
+        if(books.length>0){
+          books = books.filter((book) => book.id)
+          console.log(books)
+          //books = this.mergeArr(books,this.props.myBooks)
+          this.setState({books})
+        }
+        else{
+          this.setState({books: []})
+        }
+      })
+    } else {
+      this.setState({books: [], query: ''})
+    }
+  }
   render() {
     const books = this.state.books
     const query = this.state.query
@@ -51,9 +69,7 @@ class SearchBooks extends Component {
             <ol className="books-grid"></ol>
           </div>
         </div>
-        {this.state.query !== '' && books.length > 0 && (<Shelf title="Search Results" books={books} onShelfChange={(id, shelf) => {
-          this.props.onShelfChange(id, shelf)
-        }}/>)}
+        {this.state.query !== '' && books.length > 0 && (<Shelf title="Search Results" books={books} />)}
       </div>
 
 
