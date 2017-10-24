@@ -17,18 +17,6 @@ class SearchBooks extends Component {
       this.bookSearch(value)
     }
 
-  // mergeArr = (arr,Arr) => {
-  //   return arr.map((item)=>{
-  //     Arr.forEach((Item)=>{
-  //       if(Item.id === item.id){
-  //         item.shelf = Item.shelf
-  //         return
-  //       }
-  //     })
-  //     return item
-  //   })
-  // }
-
   bookSearch = (value) => {
     if (value.length !== 0) {
       BooksAPI.search(value, 10).then((books) => {
@@ -66,9 +54,7 @@ class SearchBooks extends Component {
           </div>
         </div>
         {this.state.query !== '' && books.length > 0 && (<Shelf title="Search Results" books={books}
-        onShelfUpdate={(id, shelf) => {
-          this.props.onShelfUpdate(id, shelf)
-        }}/>)}
+        onChange={this.props.shelfUpdate} />)}
       </div>
 
 

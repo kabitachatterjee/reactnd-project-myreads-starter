@@ -25,22 +25,21 @@ class BooksApp extends React.Component {
     })
   }
 
-  changeShelf = (id,shelf) => {
-    BooksAPI.update(id, shelf).then(()=>{
-      this.componentDidMount()
-    })
+  shelfUpdate = (event) => {
+    BooksAPI.update({id: event.target.id}, event.target.value).then((response) => {
+       BooksAPI.getAll().then((books) => {
+        this.setState({allBooks: books})
+      });
+    });
   }
-
-
 
 
   render() {
     return (
       <div className="app">
       <Route path='/search' render={() => (<SearchBooks books={this.state.books}
-        onShelfUpdate={(id,shelf) => {this.changeShelf(id,shelf) }} />)} />
-        <Route exact path='/' render={() => (<BookList books={this.state.allBooks} onShelfUpdate={(id,shelf) => {
-                  this.changeShelf(id,shelf) }} />)} />
+        onChangeShelf={this.changeShelf} />)} />
+        <Route exact path='/' render={() => (<BookList books={this.state.allBooks} shelfUpdate={this.shelfUpdate} />)} />
         </div>
     )
   }

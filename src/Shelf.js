@@ -3,25 +3,12 @@ import { PropTypes } from 'prop-types';
 
 class Shelf extends Component {
   static propTypes = {
-    books: PropTypes.array.isRequired
+    books: PropTypes.array.isRequired,
+    shelfUpdate: PropTypes.func.isRequired
     }
-  state = {
-    shelf: ''
-  }
-  change(event){
-    console.log(event.target.id)
-    console.log(event.target.value)
-    const book = event.target.id
-    const shelf = event.target.value
-         this.setState({shelf: shelf}, function () {
-    if(this.props.onShelfUpdate) {
-         this.props.onShelfUpdate(book, this.state.shelf)
-       }
-});
-
-     }
 
   render() {
+     const { books, shelfUpdate } = this.props;
     return(
       <div>
         <div className="bookshelf">
@@ -34,7 +21,7 @@ class Shelf extends Component {
                     <div className="book-top">
                       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+book.imageLinks.thumbnail+')' }}></div>
                         <div className="book-shelf-changer">
-                          <select id={book.id} value={book.shelf} onChange={this.change.bind(this)}>
+                          <select id={book.id} value={book.shelf} onChange={shelfUpdate}>
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
