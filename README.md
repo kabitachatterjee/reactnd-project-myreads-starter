@@ -57,7 +57,7 @@ The backend API uses a fixed set of cached search results and is limited to a pa
 
 ##Screenshots
 
-![screenshot #1](https://github.com/kabitachatterjee/reactnd-project-myreads-starter/public/MyReads.png?raw=true)
+![screenshot #1](/public/MyReads.png?raw=true)
 
-  ## Adding a trail:
-  ![screenshot #2](https://github.com/kabitachatterjee/reactnd-project-myreads-starter/public/Search.png?raw=true)
+  ## Searching for books:
+  ![screenshot #2](/public/Search.png?raw=true)
