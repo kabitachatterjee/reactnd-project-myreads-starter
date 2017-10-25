@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import serializeForm from 'form-serialize';
 import Shelf from './Shelf';
 import * as BooksAPI from './BooksAPI';
 import BookList from './BookList';
