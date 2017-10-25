@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Shelf from './Shelf';
 import * as BooksAPI from './BooksAPI';
-import BookList from './BookList';
 
 class SearchBooks extends Component {
 
@@ -36,7 +35,6 @@ class SearchBooks extends Component {
   render() {
     const books = this.state.books
     const query = this.state.query
-    const { shelfUpdate } = this.props;
     return (
       <div>
         <div className="search-books">
@@ -52,15 +50,12 @@ class SearchBooks extends Component {
           </div>
           <div className="search-books-results">
             <ol className="books-grid">
-
+            {this.state.query !== '' && books.length > 0 && (<Shelf title="Search Results" books={books}
+            shelfUpdate={this.props.onShelfSelect}/>)}
           </ol>
           </div>
         </div>
-        {this.state.query !== '' && books.length > 0 && (<Shelf title="Search Results" books={books}
-        shelfUpdate={this.props.onShelfSelect}/>)}
       </div>
-
-
     )
   }
 }
