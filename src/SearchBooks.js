@@ -18,7 +18,7 @@ class SearchBooks extends Component {
 
   bookSearch = (value) => {
     if (value.length !== 0) {
-      BooksAPI.search(value, 10).then((books) => {
+      BooksAPI.search(value, 20).then((books) => {
         if(books.length>0){
           books = books.filter((book) => book.imageLinks)
           console.log(books)
@@ -48,7 +48,10 @@ class SearchBooks extends Component {
               />
             </div>
           </div>
-          <div className="search-books-results search-books-title">
+          <div className="search-books-results">
+          <ol className="books-grid">
+          {this.state.query !== '' && books.length === 0 && (<div className="search-books-title">Sorry, no results</div>)}
+        </ol>
             <ol className="books-grid">
             {this.state.query !== '' && books.length > 0 && (<Shelf title="Search Results" books={books}
             shelfUpdate={this.props.onShelfChange}/>)}

@@ -5,7 +5,6 @@ body {
   line-height: 1.5;
 }
 body, .app {
-  background: white;
   background-color: #435a9e;
 }
 
@@ -106,7 +105,6 @@ body, .app {
 
 .search-books-results {
   padding: 80px 10px 20px;
-  /*background-color: #435a9e;*/
 }
 
 /* books grid */
@@ -177,4 +175,7 @@ body, .app {
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+.search-books-title {
+  font-size: 30px;
 }
