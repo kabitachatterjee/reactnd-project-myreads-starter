@@ -51,7 +51,7 @@ class SearchBooks extends Component {
           <div className="search-books-results search-books-title">
             <ol className="books-grid">
             {this.state.query !== '' && books.length > 0 && (<Shelf title="Search Results" books={books}
-            shelfUpdate={this.props.onShelfSelect}/>)}
+            shelfUpdate={this.props.onShelfChange}/>)}
           </ol>
           </div>
         </div>
