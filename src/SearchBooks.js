@@ -20,7 +20,10 @@ class SearchBooks extends Component {
     if (value.length !== 0) {
       BooksAPI.search(value, 20).then((books) => {
         if(books.length>0){
-          
+          books.forEach(function(book){
+            return book.shelf= 'None';
+          });
+
           console.log(books)
           this.setState({books: books})
         }
@@ -53,7 +56,7 @@ class SearchBooks extends Component {
           {this.state.query !== '' && books.length === 0 && (<div className="search-books-title">Sorry, no results</div>)}
         </ol>
             <ol className="books-grid">
-            {this.state.query !== '' && books.length > 0 && (<Shelf title="Search Results" books={books}
+            {this.state.query !== '' && books.length > 0 && (<Shelf name="Search Results" books={books}
             shelfUpdate={this.props.onShelfChange}/>)}
           </ol>
           </div>
