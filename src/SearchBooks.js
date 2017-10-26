@@ -11,7 +11,7 @@ class SearchBooks extends Component {
   }
 
   updateQuery = (event) => {
-      const value = event.target.value.trim()
+      const value = event.target.value
       this.setState({query: value})
       this.bookSearch(value)
     }
@@ -20,7 +20,7 @@ class SearchBooks extends Component {
     if (value.length !== 0) {
       BooksAPI.search(value, 20).then((books) => {
         if(books.length>0){
-          books = books.filter((book) => book.imageLinks)
+          
           console.log(books)
           this.setState({books: books})
         }

@@ -19,7 +19,12 @@ class Shelf extends Component {
                 <li key={book.id}>
                   <div className="book">
                     <div className="book-top">
+                    { typeof(book.imageLinks) !== 'undefined' &&
                       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url('+book.imageLinks.thumbnail+')' }}></div>
+                    }
+                      { typeof(book.imageLinks) === 'undefined'  &&
+                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url(http://via.placeholder.com/128x193?text=No%20Cover)' }}></div>
+                      }
                         <div className="book-shelf-changer">
                           <select id={book.id} value={book.shelf} onChange={shelfUpdate}>
                             <option value="none" disabled>Move to...</option>
