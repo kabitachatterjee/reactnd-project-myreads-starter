@@ -14,7 +14,6 @@ class BooksApp extends React.Component {
       this.setState({
         allBooks: books
       })
-      console.log(this.state.allBooks)
     })
   }
 

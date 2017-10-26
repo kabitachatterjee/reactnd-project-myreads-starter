@@ -23,8 +23,6 @@ class SearchBooks extends Component {
           books.forEach(function(book){
             return book.shelf= 'None';
           });
-
-          console.log(books)
           this.setState({books: books})
         }
         else{
