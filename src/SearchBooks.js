@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Shelf from './Shelf';
 import * as BooksAPI from './BooksAPI';
+import { PropTypes } from 'prop-types';
 
 class SearchBooks extends Component {
-
+  static propTypes = {
+    allbooks: PropTypes.array.isRequired
+  }
   state = {
     books: [],
     query: ''
@@ -17,12 +20,15 @@ class SearchBooks extends Component {
     }
 
   bookSearch = (value) => {
+    var myBooks = this.props.allbooks;
     if (value.length !== 0) {
       BooksAPI.search(value, 20).then((books) => {
-        if(books.length>0){
-          books.forEach(function(book){
-            return book.shelf= 'None';
-          });
+        if(books.length){
+          books.forEach((book, index) => {
+                        let myBook = myBooks.find((b) => b.id === book.id);
+                      return  book.shelf = myBook ? myBook.shelf : 'none';
+                    });
+
           this.setState({books: books})
         }
         else{
