@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Shelf from './Shelf';
 import * as BooksAPI from './BooksAPI';
 import { PropTypes } from 'prop-types';
+import { Debounce,Throttle } from 'react-throttle';
+import {DebounceInput} from 'react-debounce-input';
 
 class SearchBooks extends Component {
   static propTypes = {
@@ -48,11 +50,11 @@ class SearchBooks extends Component {
           <div className="search-books-bar">
             <Link className="close-search" to="/">Close</Link>
             <div className="search-books-input-wrapper">
-              <input type="text"
-                placeholder="Search by title or author"
-                value={query}
-                onChange={this.updateQuery}
-              />
+            <DebounceInput
+          minLength={1}
+          debounceTimeout={300}
+          onChange={this.updateQuery} />
+
             </div>
           </div>
           <div className="search-books-results">
